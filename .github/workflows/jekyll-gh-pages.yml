@@ -47,7 +47,7 @@ jobs:
           source: ./docs
           destination: ./_site
       - name: Create JavaDoc
-        run: mvn -B javadoc:javadoc -D"reportOutputDirectory=_site"
+        run: mvn -B javadoc:javadoc -D"reportOutputDirectory=./_site"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
