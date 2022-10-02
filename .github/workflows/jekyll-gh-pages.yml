@@ -39,8 +39,6 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-java11-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-java11-m2
-      - name: Create JavaDoc
-        run: mvn -B javadoc:javadoc -D"reportOutputDirectory=_site"
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Build with Jekyll
@@ -48,6 +46,8 @@ jobs:
         with:
           source: ./docs
           destination: ./_site
+      - name: Create JavaDoc
+        run: mvn -B javadoc:javadoc -D"reportOutputDirectory=_site"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
