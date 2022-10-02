@@ -40,7 +40,7 @@ aux_links_new_tab: true
 
 nav_external_links:
   - title: JavaDocs
-    url: /fold/apidocs
+    url: /apidocs
     hide_icon: true
 
 gh_edit_link: true
