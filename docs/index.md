@@ -6,6 +6,20 @@ nav_order: 1
 
 # Introduction
 
+## Installation
+
+### Maven
+
+```xml
+<dependency>
+    <groupId>io.github.oriedita</groupId>
+    <artifactId>fold</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+## Usage
+
 The `fold.io.FoldReader` and `fold.io.FoldWriter` classes can be used to read and write .fold files.
 
 ## Example

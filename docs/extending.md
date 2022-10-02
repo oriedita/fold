@@ -71,7 +71,8 @@ class MyFoldFile {
 If you have a list of properties the conversion becomes a bit harder to do, for this the `fold.custom.CustomListField`
 is supplied. This method can be used to automate most parts of this implementation.
 
-See `fold.CustomReaderWriterTest` for an example of this implementation.
+See [`fold.CustomReaderWriterTest`](https://github.com/oriedita/fold/tree/main/src/test/java/fold/CustomReaderWriterTest.java)
+for an example of this implementation.
 
 A list of Objects will be extracted into multiple lists of values. For example if you have an object `thing` with
 fields `x` and `y` and you want to save it in namespace `my_ns`, the values would be saved as two lists of numbers in
