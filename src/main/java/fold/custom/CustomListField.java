@@ -11,8 +11,8 @@ import java.util.Map;
  * @param <T> The type of the value
  * @param <V> An enum denoting the available fields that make up this extension.
  */
-public class CustomListField<T, V> {
-    private final V[] names;
+public class CustomListField<T, V extends Enum<V>> {
+    private final Class<V> names;
     private final String namespace;
     private final Adapter<Map<V, Object>, T> factory;
 
@@ -23,7 +23,7 @@ public class CustomListField<T, V> {
      * @param names     A list of valid names for fields in the fold file.
      * @param factory   A Factor which can convert a Map to T and back.
      */
-    public CustomListField(String namespace, V[] names, Adapter<Map<V, Object>, T> factory) {
+    public CustomListField(String namespace, Class<V> names, Adapter<Map<V, Object>, T> factory) {
         this.names = names;
         this.namespace = namespace;
         this.factory = factory;
@@ -37,7 +37,7 @@ public class CustomListField<T, V> {
      */
     public List<T> getValue(Map<String, Object> customMap) {
         Map<V, List<?>> vals = new HashMap<>();
-        for (V name : names) {
+        for (V name : names.getEnumConstants()) {
             vals.put(name, (List<?>) customMap.get(getKey(name)));
         }
 
@@ -85,12 +85,12 @@ public class CustomListField<T, V> {
     /**
      * Set the value in the custom properties map of a fold file.
      *
-     * @param customMap The custom properties map of a fold file,.
+     * @param customMap The custom properties map of a fold file.
      * @param val       The value to set.
      */
     public void setValue(Map<String, Object> customMap, List<T> val) {
         Map<String, List<Object>> tempMap = new HashMap<>();
-        for (V v : names) {
+        for (V v : names.getEnumConstants()) {
             tempMap.put(getKey(v), new ArrayList<>());
         }
 
