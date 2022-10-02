@@ -1,3 +1,9 @@
+---
+layout: default
+title: Introduction
+nav_order: 1
+---
+
 # Introduction
 
 The `fold.io.FoldReader` and `fold.io.FoldWriter` classes can be used to read and write .fold files.
