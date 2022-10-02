@@ -38,6 +38,11 @@ aux_links:
     - "//github.com/oriedita/fold/issues"
 aux_links_new_tab: true
 
+nav_external_links:
+  - title: JavaDocs
+    url: /fold/apidocs
+    hide_icon: true
+
 gh_edit_link: true
 gh_edit_link_text: "Edit this page on GitHub."
 gh_edit_repository: "https://github.com/oriedita/fold"
