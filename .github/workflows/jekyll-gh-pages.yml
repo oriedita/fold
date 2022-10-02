@@ -37,8 +37,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.m2
-          key: ${{ runner.os }}-java11-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-java11-m2
+          key: ${{ runner.os }}-java11-m2-javadoc-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-java11-m2-javadoc
       - name: Create JavaDoc
         run: mvn -B javadoc:javadoc -D"reportOutputDirectory=./docs"
       - name: Setup Pages
