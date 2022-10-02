@@ -50,7 +50,7 @@ public class ReaderTest extends BaseFoldTest {
     public void testEmpty() throws Exception {
         FoldFile foldFile = loadFile("fold/empty.fold");
 
-        Assertions.assertEquals("oriedita", foldFile.getCreator());
+        Assertions.assertNull(foldFile.getCreator());
         Assertions.assertEquals(1.1, foldFile.getSpec());
         Assertions.assertNull(foldFile.getAuthor());
         Assertions.assertNull(foldFile.getTitle());

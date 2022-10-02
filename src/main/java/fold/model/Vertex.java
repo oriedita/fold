@@ -4,60 +4,103 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Holds a position, a vertex is part of a list of {@link Face} it is part of and a list of {@link Vertex} which are adjacent.
+ * Holds a coordinate, a vertex is part of a list of {@link Face} it is part of and a list of {@link Vertex} which are adjacent.
  */
 public class Vertex {
-    private Integer id;
     private Double x;
     private Double y;
     private Double z;
     private List<Vertex> vertices = new ArrayList<>();
     private List<Face> faces = new ArrayList<>();
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    /**
+     * Get the x coordinate of this vertex.
+     *
+     * @return The x coordinate of this vertex.
+     */
     public Double getX() {
         return x;
     }
 
+    /**
+     * Set the x coordinate of this vertex.
+     *
+     * @param x The x coordinate of this vertex.
+     */
     public void setX(Double x) {
         this.x = x;
     }
 
+    /**
+     * Get the y coordinate of this vertex.
+     *
+     * @return The y coordinate of this vertex.
+     */
     public Double getY() {
         return y;
     }
 
+    /**
+     * Set the y coordinate of this vertex.
+     *
+     * @param y The y coordinate of this vertex.
+     */
     public void setY(Double y) {
         this.y = y;
     }
 
+    /**
+     * Get the z coordinate of this vertex. This value is usually zero.
+     *
+     * @return The z coordinate of this vertex.
+     */
     public Double getZ() {
         return z;
     }
 
+    /**
+     * Set the z coordinate of this vertex.
+     *
+     * @param z The z coordinate of this vertex.
+     */
     public void setZ(Double z) {
         this.z = z;
     }
 
+    /**
+     * Get all vertices that are adjacent to this vertex.
+     * <p>
+     * This is a replacement for {@link Edge}, a frame with edges does not need this value.
+     *
+     * @return All vertices that are adjacent to this vertex.
+     */
     public List<Vertex> getVertices() {
         return vertices;
     }
 
+    /**
+     * Set the vertices that are adjacent to this vertex.
+     *
+     * @param vertices The vertices that are adjacent to this vertex.
+     */
     public void setVertices(List<Vertex> vertices) {
         this.vertices = vertices;
     }
 
+    /**
+     * Get all the faces this vertex is part of.
+     *
+     * @return The faces this vertex is part of.
+     */
     public List<Face> getFaces() {
         return faces;
     }
 
+    /**
+     * Set the faces this vertex is part of.
+     *
+     * @param faces The faces this vertex is part of.
+     */
     public void setFaces(List<Face> faces) {
         this.faces = faces;
     }

@@ -1,4 +1,5 @@
-# Introduction 
+# Introduction
+
 The `fold.io.FoldReader` and `fold.io.FoldWriter` classes can be used to read and write .fold files.
 
 ## Example

@@ -7,28 +7,12 @@ import java.util.List;
  * A face consists of a list of {@link Vertex} and a list of {@link Edge}.
  */
 public class Face {
-    private Integer id;
     private List<Vertex> vertices = new ArrayList<>();
     private List<Edge> edges = new ArrayList<>();
 
     /**
-     * Get the id of this face (internal representation).
-     * @return The id of this face.
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * Set the id of this face (internal representation).
-     * @param id The id of this face.
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
      * Get the list of vertices in this face.
+     *
      * @return The vertices contained in this face.
      */
     public List<Vertex> getVertices() {
@@ -37,6 +21,7 @@ public class Face {
 
     /**
      * Set the list of vertices in this face.
+     *
      * @param vertices The vertices contained in this face.
      */
     public void setVertices(List<Vertex> vertices) {
@@ -45,6 +30,7 @@ public class Face {
 
     /**
      * Get the list of edges for this face.
+     *
      * @return The edges that this face consists of.
      */
     public List<Edge> getEdges() {
@@ -53,6 +39,7 @@ public class Face {
 
     /**
      * Set the list of edges for this face.
+     *
      * @param edges The edges that this face consists of.
      */
     public void setEdges(List<Edge> edges) {

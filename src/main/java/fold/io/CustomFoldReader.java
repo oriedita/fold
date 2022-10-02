@@ -2,8 +2,6 @@ package fold.io;
 
 import fold.model.FoldFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -14,17 +12,28 @@ import static fold.io.impl.Fold.json;
  *
  * @param <T> A subclass of {@link FoldFile} to read into.
  */
-public class CustomFoldReader<T extends FoldFile> implements Reader<T> {
+public class CustomFoldReader<T extends FoldFile> {
     private final Class<T> tClass;
     private final InputStream inputStream;
 
+    /**
+     * Create a new CustomFoldReader instance.
+     *
+     * @param tClass      The (subclass of) {@link FoldFile} this reader can read from.
+     * @param inputStream The inputStream to read from.
+     */
     public CustomFoldReader(Class<T> tClass, InputStream inputStream) {
         this.tClass = tClass;
         this.inputStream = inputStream;
     }
 
-    @Override
-    public T read() throws IOException {
+    /**
+     * Read a FoldFile from the given inputStream
+     *
+     * @return A (subclass of) {@link FoldFile}
+     * @throws FoldFileFormatException If reading the inputStream causes an exception.
+     */
+    public T read() throws FoldFileFormatException {
         try {
             return json.beanFrom(tClass, inputStream);
         } catch (IOException e) {

@@ -3,7 +3,10 @@ package fold.io.impl;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.jr.ob.api.ValueWriter;
 import com.fasterxml.jackson.jr.ob.impl.JSONWriter;
-import fold.model.*;
+import fold.model.Edge;
+import fold.model.Face;
+import fold.model.FoldFrame;
+import fold.model.Vertex;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +15,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class FoldFrameValueWriter implements ValueWriter {
+
+    private static int convertOrderBack(Boolean face1AboveFace2) {
+        if (face1AboveFace2 == null) {
+            return 0;
+        }
+
+        if (face1AboveFace2) {
+            return 1;
+        }
+
+        return -1;
+    }
 
     @Override
     public void writeValue(JSONWriter context, JsonGenerator g, Object value) throws IOException {
@@ -57,10 +72,10 @@ class FoldFrameValueWriter implements ValueWriter {
                 vertices_coords.add(coords);
             }
             if (vertex.getFaces().size() > 0) {
-                vertices_faces.add(vertex.getFaces().stream().map(Face::getId).collect(Collectors.toList()));
+                vertices_faces.add(vertex.getFaces().stream().map(f -> value.getFaces().indexOf(f)).collect(Collectors.toList()));
             }
             if (vertex.getVertices().size() > 0) {
-                vertices_vertices.add(vertex.getVertices().stream().map(Vertex::getId).collect(Collectors.toList()));
+                vertices_vertices.add(vertex.getVertices().stream().map(v -> value.getVertices().indexOf(v)).collect(Collectors.toList()));
             }
         }
 
@@ -95,7 +110,9 @@ class FoldFrameValueWriter implements ValueWriter {
                 edges_length.add(edge.getLength());
             }
             if (edge.getStart() != null && edge.getEnd() != null) {
-                edges_vertices.add(Arrays.asList(edge.getStart().getId(), edge.getEnd().getId()));
+                int edgeStartVertexId = value.getVertices().indexOf(edge.getStart());
+                int edgeEndVertexId = value.getVertices().indexOf(edge.getEnd());
+                edges_vertices.add(Arrays.asList(edgeStartVertexId, edgeEndVertexId));
             }
         }
 
@@ -126,10 +143,10 @@ class FoldFrameValueWriter implements ValueWriter {
 
         for (Face face : value.getFaces()) {
             if (face.getEdges().size() > 0) {
-                faces_edges.add(face.getEdges().stream().map(Edge::getId).collect(Collectors.toList()));
+                faces_edges.add(face.getEdges().stream().map(e -> value.getEdges().indexOf(e)).collect(Collectors.toList()));
             }
             if (face.getVertices().size() > 0) {
-                faces_vertices.add(face.getVertices().stream().map(Vertex::getId).collect(Collectors.toList()));
+                faces_vertices.add(face.getVertices().stream().map(v -> value.getVertices().indexOf(v)).collect(Collectors.toList()));
             }
         }
 
@@ -150,13 +167,18 @@ class FoldFrameValueWriter implements ValueWriter {
         for (int i = 0; i < value.getFaceOrders().size(); i++) {
             FoldFrame.FaceOrder faceOrder = value.getFaceOrders().get(i);
 
-            faceOrders.add(Arrays.asList(faceOrder.getFace1().getId(), faceOrder.getFace2().getId(), convertOrderBack(faceOrder.getFace1AboveFace2())));
+            int faceOrderFace1Id = value.getFaces().indexOf(faceOrder.getFace1());
+            int faceOrderFace2Id = value.getFaces().indexOf(faceOrder.getFace2());
+            faceOrders.add(Arrays.asList(faceOrderFace1Id, faceOrderFace2Id, convertOrderBack(faceOrder.getFace1AboveFace2())));
         }
 
         for (int i = 0; i < value.getEdgeOrders().size(); i++) {
             FoldFrame.EdgeOrder edgeOrder = value.getEdgeOrders().get(i);
 
-            edgeOrders.add(Arrays.asList(edgeOrder.getEdge1().getId(), edgeOrder.getEdge2().getId(), convertOrderBack(edgeOrder.getEdge1AboveEdge2())));
+            int edge1Id = value.getEdges().indexOf(edgeOrder.getEdge1());
+            int edge2Id = value.getEdges().indexOf(edgeOrder.getEdge2());
+
+            edgeOrders.add(Arrays.asList(edge1Id, edge2Id, convertOrderBack(edgeOrder.getEdge1AboveEdge2())));
         }
 
         if (edgeOrders.size() > 0) {
@@ -167,18 +189,6 @@ class FoldFrameValueWriter implements ValueWriter {
             g.writeFieldName("faceOrders");
             context.writeValue(faceOrders);
         }
-    }
-
-    private static int convertOrderBack(Boolean face1AboveFace2) {
-        if (face1AboveFace2 == null) {
-            return 0;
-        }
-
-        if (face1AboveFace2) {
-            return 1;
-        }
-
-        return -1;
     }
 
     @Override

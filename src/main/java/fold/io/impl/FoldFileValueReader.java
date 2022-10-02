@@ -22,7 +22,8 @@ class FoldFileValueReader<T extends FoldFile> extends ValueReader {
         FoldFile instance;
         try {
             instance = type.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
 

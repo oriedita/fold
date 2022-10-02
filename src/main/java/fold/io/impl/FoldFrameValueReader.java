@@ -18,6 +18,110 @@ class FoldFrameValueReader extends ValueReader {
         super(FoldFrame.class);
     }
 
+    private static <T> List<List<T>> readListListOf(Class<T> type, JSONReader reader, JsonParser p) throws IOException {
+        JsonToken t = p.nextToken();
+        if (t == JsonToken.VALUE_NULL) {
+            return null;
+        }
+        if (t != JsonToken.START_ARRAY) {
+            throw JSONObjectException.from(p,
+                    "Can not read a List: expect to see START_ARRAY ('['), instead got: " + ValueReader._tokenDesc(p));
+        }
+
+        if (p.nextToken() == JsonToken.END_ARRAY) {
+            return Collections.emptyList();
+        }
+        List<T> value = reader.readListOf(type);
+        if (p.nextToken() == JsonToken.END_ARRAY) {
+            return Collections.singletonList(value);
+        }
+        List<List<T>> l = new ArrayList<>();
+        l.add(value);
+        do {
+            l.add(reader.readListOf(type));
+        } while (p.nextToken() != JsonToken.END_ARRAY);
+        return l;
+
+    }
+
+    private static List<Vertex> convertVertices(
+            List<List<Double>> vertices_coords,
+            List<List<Integer>> vertices_vertices,
+            List<Vertex> vertices
+    ) {
+        for (List<Double> coords : vertices_coords) {
+            Vertex vertex = new Vertex();
+
+            vertex.setX(coords.get(0));
+            vertex.setY(coords.get(1));
+
+            if (coords.size() > 2) {
+                vertex.setZ(coords.get(2));
+            }
+
+            vertices.add(vertex);
+        }
+
+        if (vertices_vertices.size() > 0) {
+            for (int i = 0; i < vertices.size(); i++) {
+                List<Vertex> vertexList = new ArrayList<>();
+                for (int j = 0; j < vertices_vertices.get(i).size(); j++) {
+                    vertexList.add(vertices.get(vertices_vertices.get(i).get(j)));
+                }
+
+                vertices.get(i).setVertices(vertexList);
+            }
+        }
+
+        return vertices;
+    }
+
+    private static List<Edge> convertEdges(
+            List<String> edges_assignment,
+            List<Double> edges_foldAngle,
+            List<Double> edges_length,
+            List<Edge> edges
+    ) {
+        for (int i = 0; i < edges_assignment.size(); i++) {
+            Edge edge = new Edge();
+
+            edge.setAssignment(FoldEdgeAssignment.of(edges_assignment.get(i)));
+
+            if (edges_foldAngle.size() > i) {
+                edge.setFoldAngle(edges_foldAngle.get(i));
+            }
+            if (edges_length.size() > i) {
+                edge.setLength(edges_length.get(i));
+            }
+
+            edges.add(edge);
+        }
+
+        return edges;
+    }
+
+    private static List<Face> convertFaces(
+            List<List<Integer>> faces_vertices,
+            List<Face> faces
+    ) {
+        for (int i = 0; i < faces_vertices.size(); i++) {
+            Face face = new Face();
+
+            faces.add(face);
+            // Get vertices and edges in FrameAdapter
+        }
+
+        return faces;
+    }
+
+    private static Boolean convertOrder(Integer order) {
+        if (order == null || order == 0) {
+            return null;
+        }
+
+        return order > 0;
+    }
+
     @Override
     public Object read(JSONReader reader, JsonParser p) throws IOException {
         FoldFrame frame = new FoldFrame();
@@ -177,117 +281,5 @@ class FoldFrameValueReader extends ValueReader {
                 instance.getEdgeOrders().add(edgeOrder);
             }
         }
-    }
-
-    private static <T> List<List<T>> readListListOf(Class<T> type, JSONReader reader, JsonParser p) throws IOException {
-        JsonToken t = p.nextToken();
-        if (t == JsonToken.VALUE_NULL) {
-            return null;
-        }
-        if (t != JsonToken.START_ARRAY) {
-            throw JSONObjectException.from(p,
-                    "Can not read a List: expect to see START_ARRAY ('['), instead got: " + ValueReader._tokenDesc(p));
-        }
-
-        if (p.nextToken() == JsonToken.END_ARRAY) {
-            return Collections.emptyList();
-        }
-        List<T> value = reader.readListOf(type);
-        if (p.nextToken() == JsonToken.END_ARRAY) {
-            return Collections.singletonList(value);
-        }
-        List<List<T>> l = new ArrayList<>();
-        l.add(value);
-        do {
-            l.add(reader.readListOf(type));
-        } while (p.nextToken() != JsonToken.END_ARRAY);
-        return l;
-
-    }
-
-    private static List<Vertex> convertVertices(
-            List<List<Double>> vertices_coords,
-            List<List<Integer>> vertices_vertices,
-            List<Vertex> vertices
-    ) {
-        int id = 0;
-
-        for (List<Double> coords : vertices_coords) {
-            Vertex vertex = new Vertex();
-
-            vertex.setId(id++);
-
-            vertex.setX(coords.get(0));
-            vertex.setY(coords.get(1));
-
-            if (coords.size() > 2) {
-                vertex.setZ(coords.get(2));
-            }
-
-            vertices.add(vertex);
-        }
-
-        if (vertices_vertices.size() > 0) {
-            for (int i = 0; i < vertices.size(); i++) {
-                List<Vertex> vertexList = new ArrayList<>();
-                for (int j = 0; j < vertices_vertices.get(i).size(); j++) {
-                    vertexList.add(vertices.get(vertices_vertices.get(i).get(j)));
-                }
-
-                vertices.get(i).setVertices(vertexList);
-            }
-        }
-
-        return vertices;
-    }
-
-    private static List<Edge> convertEdges(
-            List<String> edges_assignment,
-            List<Double> edges_foldAngle,
-            List<Double> edges_length,
-            List<Edge> edges
-    ) {
-        for (int i = 0; i < edges_assignment.size(); i++) {
-            Edge edge = new Edge();
-
-            edge.setId(i);
-            if (edges_assignment.size() > i) {
-                edge.setAssignment(FoldEdgeAssignment.of(edges_assignment.get(i)));
-            }
-            if (edges_foldAngle.size() > i) {
-                edge.setFoldAngle(edges_foldAngle.get(i));
-            }
-            if (edges_length.size() > i) {
-                edge.setLength(edges_length.get(i));
-            }
-
-            edges.add(edge);
-        }
-
-        return edges;
-    }
-
-    private static List<Face> convertFaces(
-            List<List<Integer>> faces_vertices,
-            List<Face> faces
-    ) {
-        for (int i = 0; i < faces_vertices.size(); i++) {
-            Face face = new Face();
-
-            face.setId(i);
-
-            faces.add(face);
-            // Get vertices and edges in FrameAdapter
-        }
-
-        return faces;
-    }
-
-    private static Boolean convertOrder(Integer order) {
-        if (order == null || order == 0) {
-            return null;
-        }
-
-        return order > 0;
     }
 }

@@ -32,6 +32,12 @@ public enum FoldEdgeAssignment {
         this.letter = letter;
     }
 
+    /**
+     * Create a new instance using the letter saved in the fold file.
+     *
+     * @param letter Letter identifying this FoldEdgeAssignment.
+     * @return A FoldEdgeAssignment or null.
+     */
     public static FoldEdgeAssignment of(String letter) {
         for (FoldEdgeAssignment foldEdgeAssignment : values()) {
             if (foldEdgeAssignment.getLetter().equals(letter)) {
@@ -42,6 +48,11 @@ public enum FoldEdgeAssignment {
         return null;
     }
 
+    /**
+     * Get the letter associated with this FoldEdgeAssignment, corresponds to the value in the actual fold file.
+     *
+     * @return Letter associated with this FoldEdgeAssignment.
+     */
     public String getLetter() {
         return letter;
     }

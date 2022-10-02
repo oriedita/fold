@@ -7,10 +7,6 @@ import com.fasterxml.jackson.jr.ob.api.ValueReader;
 import com.fasterxml.jackson.jr.ob.api.ValueWriter;
 import com.fasterxml.jackson.jr.ob.impl.JSONReader;
 import com.fasterxml.jackson.jr.ob.impl.JSONWriter;
-import fold.io.impl.FoldFileValueWriter;
-import fold.io.impl.FoldFileValueReader;
-import fold.io.impl.FoldFrameValueReader;
-import fold.io.impl.FoldFrameValueWriter;
 import fold.model.FoldFile;
 import fold.model.FoldFrame;
 

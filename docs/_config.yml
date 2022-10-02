@@ -39,7 +39,7 @@ aux_links:
 aux_links_new_tab: true
 
 nav_external_links:
-  - title: JavaDocs
+  - title: Javadoc
     url: /apidocs
     hide_icon: true
 
@@ -52,5 +52,5 @@ gh_edit_view_mode: "tree"
 color_scheme: light
 
 exclude:
- - Gemfile
- - Gemfile.lock
+  - Gemfile
+  - Gemfile.lock
