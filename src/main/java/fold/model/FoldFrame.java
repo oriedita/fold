@@ -13,10 +13,10 @@ public class FoldFrame {
     private List<Face> faces = new ArrayList<>();
     private List<FaceOrder> faceOrders = new ArrayList<>();
     private List<EdgeOrder> edgeOrders = new ArrayList<>();
-    private String frameAuthor;
-    private String frameTitle;
-    private String frameDescription;
-    private List<String> frameClasses = new ArrayList<>();
+    private String author;
+    private String title;
+    private String description;
+    private List<String> classes = new ArrayList<>();
     private List<String> attributes = new ArrayList<>();
     private String unit;
     private Integer parent;
@@ -117,17 +117,17 @@ public class FoldFrame {
      *
      * @return The human author of this frame.
      */
-    public String getFrameAuthor() {
-        return frameAuthor;
+    public String getAuthor() {
+        return author;
     }
 
     /**
      * Set the human author for this frame.
      *
-     * @param frameAuthor The human author for this frame.
+     * @param author The human author for this frame.
      */
-    public void setFrameAuthor(String frameAuthor) {
-        this.frameAuthor = frameAuthor;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     /**
@@ -135,17 +135,17 @@ public class FoldFrame {
      *
      * @return The description of this frame.
      */
-    public String getFrameTitle() {
-        return frameTitle;
+    public String getTitle() {
+        return title;
     }
 
     /**
      * Set the title for this frame.
      *
-     * @param frameTitle The title for this frame.
+     * @param title The title for this frame.
      */
-    public void setFrameTitle(String frameTitle) {
-        this.frameTitle = frameTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
@@ -153,18 +153,18 @@ public class FoldFrame {
      *
      * @return The description of this frame.
      */
-    public String getFrameDescription() {
-        return frameDescription;
+    public String getDescription() {
+        return description;
     }
 
     /**
      * Set the description for this frame.
      *
-     * @param frameDescription The description for this frame.
-     * @see #getFrameDescription()
+     * @param description The description for this frame.
+     * @see #getDescription()
      */
-    public void setFrameDescription(String frameDescription) {
-        this.frameDescription = frameDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -180,18 +180,18 @@ public class FoldFrame {
      *
      * @return The classes of this frame.
      */
-    public List<String> getFrameClasses() {
-        return frameClasses;
+    public List<String> getClasses() {
+        return classes;
     }
 
     /**
      * Set the classes for this frame.
      *
-     * @param frameClasses The classes for this frame.
-     * @see #getFrameClasses()
+     * @param classes The classes for this frame.
+     * @see #getClasses()
      */
-    public void setFrameClasses(List<String> frameClasses) {
-        this.frameClasses = frameClasses;
+    public void setClasses(List<String> classes) {
+        this.classes = classes;
     }
 
     /**
@@ -310,7 +310,7 @@ public class FoldFrame {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FoldFrame frame = (FoldFrame) o;
-        return Objects.equals(getVertices(), frame.getVertices()) && Objects.equals(getEdges(), frame.getEdges()) && Objects.equals(getFaces(), frame.getFaces()) && Objects.equals(getFaceOrders(), frame.getFaceOrders()) && Objects.equals(getEdgeOrders(), frame.getEdgeOrders()) && Objects.equals(getFrameAuthor(), frame.getFrameAuthor()) && Objects.equals(getFrameTitle(), frame.getFrameTitle()) && Objects.equals(getFrameDescription(), frame.getFrameDescription()) && Objects.equals(getFrameClasses(), frame.getFrameClasses()) && Objects.equals(getAttributes(), frame.getAttributes()) && Objects.equals(getUnit(), frame.getUnit()) && Objects.equals(getParent(), frame.getParent()) && Objects.equals(getInherit(), frame.getInherit());
+        return Objects.equals(getVertices(), frame.getVertices()) && Objects.equals(getEdges(), frame.getEdges()) && Objects.equals(getFaces(), frame.getFaces()) && Objects.equals(getFaceOrders(), frame.getFaceOrders()) && Objects.equals(getEdgeOrders(), frame.getEdgeOrders()) && Objects.equals(getAuthor(), frame.getAuthor()) && Objects.equals(getTitle(), frame.getTitle()) && Objects.equals(getDescription(), frame.getDescription()) && Objects.equals(getClasses(), frame.getClasses()) && Objects.equals(getAttributes(), frame.getAttributes()) && Objects.equals(getUnit(), frame.getUnit()) && Objects.equals(getParent(), frame.getParent()) && Objects.equals(getInherit(), frame.getInherit());
     }
 
     /**
@@ -318,7 +318,7 @@ public class FoldFrame {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(getVertices(), getEdges(), getFaces(), getFaceOrders(), getEdgeOrders(), getFrameAuthor(), getFrameTitle(), getFrameDescription(), getFrameClasses(), getAttributes(), getUnit(), getParent(), getInherit());
+        return Objects.hash(getVertices(), getEdges(), getFaces(), getFaceOrders(), getEdgeOrders(), getAuthor(), getTitle(), getDescription(), getClasses(), getAttributes(), getUnit(), getParent(), getInherit());
     }
 
     /**

@@ -3,6 +3,7 @@ package fold;
 import fold.io.FoldFileFormatException;
 import fold.io.FoldReader;
 import fold.model.FoldFile;
+import fold.model.FoldFrame;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -58,14 +59,15 @@ public class ReaderTest extends BaseFoldTest {
         Assertions.assertEquals(0, foldFile.getClasses().size());
         Assertions.assertEquals(0, foldFile.getFrames().size());
 
-        Assertions.assertNull(foldFile.getFrameAuthor());
-        Assertions.assertNull(foldFile.getFrameTitle());
-        Assertions.assertNull(foldFile.getFrameDescription());
-        Assertions.assertEquals(Collections.emptyList(), foldFile.getFrameClasses());
-        Assertions.assertEquals(Collections.emptyList(), foldFile.getAttributes());
-        Assertions.assertNull(foldFile.getUnit());
+        FoldFrame rootFrame = foldFile.getRootFrame();
+        Assertions.assertNull(rootFrame.getAuthor());
+        Assertions.assertNull(rootFrame.getTitle());
+        Assertions.assertNull(rootFrame.getDescription());
+        Assertions.assertEquals(Collections.emptyList(), rootFrame.getClasses());
+        Assertions.assertEquals(Collections.emptyList(), rootFrame.getAttributes());
+        Assertions.assertNull(rootFrame.getUnit());
 
-        Assertions.assertEquals(0, foldFile.getVertices().size());
+        Assertions.assertEquals(0, rootFrame.getVertices().size());
     }
 
     /**
@@ -77,8 +79,8 @@ public class ReaderTest extends BaseFoldTest {
 
         Assertions.assertEquals(2, foldFile.getFrames().size());
 
-        Assertions.assertEquals("a frame", foldFile.getFrames().get(0).getFrameTitle());
-        Assertions.assertEquals("other frame", foldFile.getFrames().get(1).getFrameTitle());
+        Assertions.assertEquals("a frame", foldFile.getFrames().get(0).getTitle());
+        Assertions.assertEquals("other frame", foldFile.getFrames().get(1).getTitle());
     }
 
     @Test
@@ -93,12 +95,13 @@ public class ReaderTest extends BaseFoldTest {
     public void testMainFrame() throws Exception {
         FoldFile foldFile = loadFile("fold/main_frame.fold");
 
-        Assertions.assertEquals("f_author", foldFile.getFrameAuthor());
-        Assertions.assertEquals("f_title", foldFile.getFrameTitle());
-        Assertions.assertEquals("f_description", foldFile.getFrameDescription());
-        Assertions.assertEquals("unit", foldFile.getUnit());
-        Assertions.assertEquals(List.of("creasePattern"), foldFile.getFrameClasses());
-        Assertions.assertEquals(Arrays.asList("2D", "nonSelfIntersecting"), foldFile.getAttributes());
+        FoldFrame rootFrame = foldFile.getRootFrame();
+        Assertions.assertEquals("f_author", rootFrame.getAuthor());
+        Assertions.assertEquals("f_title", rootFrame.getTitle());
+        Assertions.assertEquals("f_description", rootFrame.getDescription());
+        Assertions.assertEquals("unit", rootFrame.getUnit());
+        Assertions.assertEquals(List.of("creasePattern"), rootFrame.getClasses());
+        Assertions.assertEquals(Arrays.asList("2D", "nonSelfIntersecting"), rootFrame.getAttributes());
     }
 
     /**

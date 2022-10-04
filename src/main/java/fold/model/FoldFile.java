@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * The Java representation of a fold file.
  */
-public class FoldFile extends FoldFrame {
+public class FoldFile {
     private final Map<String, Object> customPropertyMap = new HashMap<>();
     private double spec = 1.1;
     private String creator;
@@ -13,6 +13,7 @@ public class FoldFile extends FoldFrame {
     private String title;
     private String description;
     private List<String> classes = new ArrayList<>();
+    private FoldFrame rootFrame = new FoldFrame();
     private List<FoldFrame> frames = new ArrayList<>();
 
     /**
@@ -190,6 +191,22 @@ public class FoldFile extends FoldFrame {
      */
     public void setClasses(List<String> classes) {
         this.classes = classes;
+    }
+
+    /**
+     * Get the root frame of this file.
+     * @return The root frame of this file.
+     */
+    public FoldFrame getRootFrame() {
+        return rootFrame;
+    }
+
+    /**
+     * Set the root frame of this file.
+     * @param rootFrame The root frame of this file.
+     */
+    public void setRootFrame(FoldFrame rootFrame) {
+        this.rootFrame = rootFrame;
     }
 
     /**

@@ -164,17 +164,17 @@ class FoldFrameValueReader extends ValueReader {
         public void readField(String fieldName, JSONReader reader, JsonParser p) throws IOException {
             switch (fieldName) {
                 case "frame_author":
-                    instance.setFrameAuthor(p.nextTextValue());
+                    instance.setAuthor(p.nextTextValue());
                     break;
                 case "frame_title":
-                    instance.setFrameTitle(p.nextTextValue());
+                    instance.setTitle(p.nextTextValue());
                     break;
                 case "frame_description":
-                    instance.setFrameDescription(p.nextTextValue());
+                    instance.setDescription(p.nextTextValue());
                     break;
                 case "frame_classes":
                     p.nextToken();
-                    instance.setFrameClasses(reader.readListOf(String.class));
+                    instance.setClasses(reader.readListOf(String.class));
                     break;
                 case "frame_attributes":
                     p.nextToken();

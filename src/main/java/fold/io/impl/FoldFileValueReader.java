@@ -27,7 +27,7 @@ class FoldFileValueReader<T extends FoldFile> extends ValueReader {
             throw new RuntimeException(e);
         }
 
-        FoldFrameValueReader.FoldFrameFactory foldFrameFactory = new FoldFrameValueReader.FoldFrameFactory(instance);
+        FoldFrameValueReader.FoldFrameFactory foldFrameFactory = new FoldFrameValueReader.FoldFrameFactory(instance.getRootFrame());
 
         String fieldName;
         while ((fieldName = p.nextFieldName()) != null) {

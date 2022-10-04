@@ -36,15 +36,15 @@ class FoldFrameValueWriter implements ValueWriter {
     }
 
     public void partialWriteValue(JSONWriter context, JsonGenerator g, FoldFrame value) throws IOException {
-        if (value.getFrameAuthor() != null)
-            g.writeStringField("frame_author", value.getFrameAuthor());
-        if (value.getFrameTitle() != null)
-            g.writeStringField("frame_title", value.getFrameTitle());
-        if (value.getFrameDescription() != null)
-            g.writeStringField("frame_description", value.getFrameDescription());
-        if (value.getFrameClasses().size() > 0) {
+        if (value.getAuthor() != null)
+            g.writeStringField("frame_author", value.getAuthor());
+        if (value.getTitle() != null)
+            g.writeStringField("frame_title", value.getTitle());
+        if (value.getDescription() != null)
+            g.writeStringField("frame_description", value.getDescription());
+        if (value.getClasses().size() > 0) {
             g.writeFieldName("frame_classes");
-            context.writeValue(value.getFrameClasses());
+            context.writeValue(value.getClasses());
         }
         if (value.getAttributes().size() > 0) {
             g.writeFieldName("frame_attributes");

@@ -39,7 +39,7 @@ class FoldFileValueWriter implements ValueWriter {
             g.writeEndArray();
         }
 
-        new FoldFrameValueWriter().partialWriteValue(context, g, foldFile);
+        new FoldFrameValueWriter().partialWriteValue(context, g, foldFile.getRootFrame());
 
         for (Map.Entry<String, Object> entry : foldFile.getCustomPropertyMap().entrySet()) {
             if (!entry.getKey().contains(":")) {
