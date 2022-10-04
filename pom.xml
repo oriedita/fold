@@ -18,6 +18,14 @@
         <tag>HEAD</tag>
     </scm>
 
+    <developers>
+        <developer>
+            <name>Gerben Oolbekkink</name>
+            <email>qurben@gmail.com</email>
+            <organizationUrl>https://github.com/qurben</organizationUrl>
+        </developer>
+    </developers>
+    
     <licenses>
         <license>
             <name>MIT</name>
