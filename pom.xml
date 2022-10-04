@@ -4,7 +4,7 @@
 
     <groupId>io.github.oriedita</groupId>
     <artifactId>fold</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Java FOLD</name>
@@ -15,7 +15,7 @@
         <url>https://github.com/oriedita/fold</url>
         <developerConnection>scm:git:https://github.com/oriedita/fold.git</developerConnection>
         <connection>scm:git:https://github.com/oriedita/fold/tree/main</connection>
-        <tag>fold-1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <developers>
