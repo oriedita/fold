@@ -6,9 +6,13 @@ nav_order: 1
 
 # Introduction
 
+This library can be used to read and write files following the [FOLD specification](https://github.com/edemaine/fold/blob/main/doc/spec.md) version 1.1.
+
 ## Installation
 
 ### Maven
+
+Add the following to your `pom.xml`:
 
 ```xml
 <dependency>
@@ -20,7 +24,7 @@ nav_order: 1
 
 ## Usage
 
-The `fold.io.FoldReader` and `fold.io.FoldWriter` classes can be used to read and write .fold files.
+The [`fold.io.FoldReader`](./apidocs/fold/io/FoldReader.html) and [`fold.io.FoldWriter`](./apidocs/fold/io/FoldWriter.html) classes can be used to read and write .fold files.
 
 ## Example
 
