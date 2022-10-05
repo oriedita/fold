@@ -1,9 +1,20 @@
 package fold.model;
 
+import java.util.Objects;
+
 /**
  * Describes an edge between two {@link Vertex} objects.
  */
 public class Edge {
+    public Edge() {
+    }
+
+    public Edge(FoldEdgeAssignment assignment, Vertex start, Vertex end) {
+        this.start = start;
+        this.end = end;
+        this.assignment = assignment;
+    }
+
     private Vertex start;
     private Vertex end;
     private FoldEdgeAssignment assignment;
@@ -113,5 +124,29 @@ public class Edge {
      */
     public void setLength(Double length) {
         this.length = length;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Edge edge = (Edge) o;
+        return Objects.equals(getStart(), edge.getStart()) && Objects.equals(getEnd(), edge.getEnd()) && getAssignment() == edge.getAssignment() && Objects.equals(getFoldAngle(), edge.getFoldAngle()) && Objects.equals(getLength(), edge.getLength());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStart(), getEnd(), getAssignment(), getFoldAngle(), getLength());
+    }
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "start=" + start +
+                ", end=" + end +
+                ", assignment=" + assignment +
+                ", foldAngle=" + foldAngle +
+                ", length=" + length +
+                '}';
     }
 }

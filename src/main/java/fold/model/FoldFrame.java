@@ -58,6 +58,12 @@ public class FoldFrame {
         this.edges = edges;
     }
 
+    public void addEdge(Edge edge) {
+        this.edges.add(edge);
+        this.vertices.add(edge.getStart());
+        this.vertices.add(edge.getEnd());
+    }
+
     /**
      * Get the list of faces in this frame.
      *

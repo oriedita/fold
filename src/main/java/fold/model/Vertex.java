@@ -2,11 +2,20 @@ package fold.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Holds a coordinate, a vertex is part of a list of {@link Face} it is part of and a list of {@link Vertex} which are adjacent.
  */
 public class Vertex {
+    public Vertex() {
+    }
+
+    public Vertex(Double x, Double y) {
+        this.x = x;
+        this.y = y;
+    }
+
     private Double x;
     private Double y;
     private Double z;
@@ -103,5 +112,29 @@ public class Vertex {
      */
     public void setFaces(List<Face> faces) {
         this.faces = faces;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vertex vertex = (Vertex) o;
+        return Objects.equals(getX(), vertex.getX()) && Objects.equals(getY(), vertex.getY()) && Objects.equals(getZ(), vertex.getZ()) && Objects.equals(getVertices(), vertex.getVertices()) && Objects.equals(getFaces(), vertex.getFaces());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getX(), getY(), getZ(), getVertices(), getFaces());
+    }
+
+    @Override
+    public String toString() {
+        return "Vertex{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                ", vertices=" + vertices +
+                ", faces=" + faces +
+                '}';
     }
 }
