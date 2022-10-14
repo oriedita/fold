@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 /**
  * Read Crease Pattern .cp files.
  *
- * Resulting {@see FoldFile} only has Edges and Vertices.
+ * Resulting {@link FoldFile} only has Edges and Vertices.
  */
 public class CreasePatternReader {
     private final InputStream in;

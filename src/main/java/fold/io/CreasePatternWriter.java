@@ -8,7 +8,7 @@ import java.io.*;
 /**
  * Write Crease Pattern .cp files.
  *
- * Reads Edges and Vertices from the {@see FoldFile}.
+ * Reads Edges and Vertices from the {@link FoldFile}.
  */
 public class CreasePatternWriter {
     private final OutputStream out;
