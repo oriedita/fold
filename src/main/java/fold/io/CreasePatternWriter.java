@@ -2,10 +2,14 @@ package fold.io;
 
 import fold.model.Edge;
 import fold.model.FoldFile;
-import fold.model.FoldFrame;
 
 import java.io.*;
 
+/**
+ * Write Crease Pattern .cp files.
+ *
+ * Reads Edges and Vertices from the {@see FoldFile}.
+ */
 public class CreasePatternWriter {
     private final OutputStream out;
 
@@ -13,6 +17,12 @@ public class CreasePatternWriter {
         this.out = out;
     }
 
+    /**
+     * Write a fold file object to a crease pattern file.
+     *
+     * @param foldFile Lines to write
+     * @throws FoldFileFormatException When writing fails.
+     */
     public void write(FoldFile foldFile) throws FoldFileFormatException {
         try (OutputStreamWriter osw = new OutputStreamWriter(out); BufferedWriter bw = new BufferedWriter(osw); PrintWriter pw = new PrintWriter(bw)) {
             for (Edge e : foldFile.getRootFrame().getEdges()) {
