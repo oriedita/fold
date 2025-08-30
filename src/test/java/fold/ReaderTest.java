@@ -52,7 +52,7 @@ public class ReaderTest extends BaseFoldTest {
         FoldFile foldFile = loadFile("fold/empty.fold");
 
         Assertions.assertNull(foldFile.getCreator());
-        Assertions.assertEquals(1.1, foldFile.getSpec());
+        Assertions.assertEquals(1.2, foldFile.getSpec());
         Assertions.assertNull(foldFile.getAuthor());
         Assertions.assertNull(foldFile.getTitle());
         Assertions.assertNull(foldFile.getDescription());

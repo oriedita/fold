@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class FoldFile {
     private final Map<String, Object> customPropertyMap = new HashMap<>();
-    private double spec = 1.1;
+    private double spec = 1.2;
     private String creator;
     private String author;
     private String title;

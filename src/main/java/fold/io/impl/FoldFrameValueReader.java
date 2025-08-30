@@ -143,6 +143,7 @@ class FoldFrameValueReader extends ValueReader {
         private final FoldFrame instance;
         List<List<Double>> vertices_coords = new ArrayList<>();
         List<List<Integer>> vertices_vertices = new ArrayList<>();
+        List<List<Integer>> vertices_edges = new ArrayList<>();
         List<List<Integer>> vertices_faces = new ArrayList<>();
 
         List<List<Integer>> edges_vertices = new ArrayList<>();
@@ -153,6 +154,7 @@ class FoldFrameValueReader extends ValueReader {
 
         List<List<Integer>> faces_vertices = new ArrayList<>();
         List<List<Integer>> faces_edges = new ArrayList<>();
+        List<List<Integer>> faces_faces = new ArrayList<>();
 
         List<List<Integer>> edgeOrders = new ArrayList<>();
         List<List<Integer>> faceOrders = new ArrayList<>();
@@ -189,6 +191,9 @@ class FoldFrameValueReader extends ValueReader {
                 case "vertices_vertices":
                     vertices_vertices = readListListOf(Integer.class, reader, p);
                     break;
+                case "vertices_edges":
+                    vertices_edges = readListListOf(Integer.class, reader, p);
+                    break;
                 case "vertices_faces":
                     vertices_faces = readListListOf(Integer.class, reader, p);
                     break;
@@ -216,6 +221,9 @@ class FoldFrameValueReader extends ValueReader {
                 case "faces_edges":
                     faces_edges = readListListOf(Integer.class, reader, p);
                     break;
+                case "faces_faces":
+                    faces_faces = readListListOf(Integer.class, reader, p);
+                    break;
                 case "edgeOrders":
                     edgeOrders = readListListOf(Integer.class, reader, p);
                     break;
@@ -240,7 +248,13 @@ class FoldFrameValueReader extends ValueReader {
                 Vertex vertex = instance.getVertices().get(i);
 
                 for (int j = 0; j < vertices_faces.get(i).size(); j++) {
-                    vertex.getFaces().add(instance.getFaces().get(vertices_faces.get(i).get(j)));
+                    // Since 1.2 vertices_faces[i][j] can be null
+                    // Add a null to vertex.faces to keep the order.
+                    if (vertices_faces.get(i).get(j) == null) {
+                        vertex.getFaces().add(null);
+                    } else {
+                        vertex.getFaces().add(instance.getFaces().get(vertices_faces.get(i).get(j)));
+                    }
                 }
             }
 
@@ -251,6 +265,12 @@ class FoldFrameValueReader extends ValueReader {
                 instance.getEdges().get(i).setEnd(instance.getVertices().get(endId));
             }
 
+            for (int i = 0; i < vertices_edges.size(); i++) {
+                for (int j = 0; j < vertices_edges.get(i).size(); j++) {
+                    instance.getVertices().get(i).getEdges().add(instance.getEdges().get(j));
+                }
+            }
+
             for (int i = 0; i < faces_edges.size(); i++) {
                 Face face = instance.getFaces().get(i);
                 for (int j = 0; j < faces_edges.get(i).size(); j++) {
@@ -258,6 +278,18 @@ class FoldFrameValueReader extends ValueReader {
                 }
                 for (int j = 0; j < faces_vertices.get(i).size(); j++) {
                     face.getVertices().add(instance.getVertices().get(faces_vertices.get(i).get(j)));
+                }
+                // faces_faces is optional, and faces_faces[i][j] can be null.
+                // if faces_faces has a value, assume it is valid.
+                if (!faces_faces.isEmpty()) {
+                    for (int j = 0; j < faces_faces.get(i).size(); j++) {
+                        Integer face_index = faces_faces.get(i).get(j);
+                        if (face_index == null) {
+                            face.getFaces().add(null);
+                        } else {
+                            face.getFaces().add(instance.getFaces().get(face_index));
+                        }
+                    }
                 }
             }
 

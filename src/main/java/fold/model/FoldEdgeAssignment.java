@@ -24,6 +24,16 @@ public enum FoldEdgeAssignment {
      * Unassigned/unknown
      */
     UNASSIGNED("U"),
+    /**
+     * Join edge
+     * @since 1.2
+     */
+    JOIN("J"),
+    /**
+     * Cut/slit edge
+     * @since 1.2
+     */
+    CUT("C"),
     ;
 
     private final String letter;
