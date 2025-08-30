@@ -216,6 +216,8 @@ public class FoldFrame {
      * <dt>nonSelfTouching <dd> the polyhedral complex has no touching faces, so face ordering isn't needed
      * <dt>selfIntersecting <dd> the polyhedral complex has properly intersecting faces
      * <dt>nonSelfIntersecting <dd> the polyhedral complex has no properly intersecting faces
+     * <dt>joins / noJoins<dd> whether any edges have an assignment of "J" (join)
+     * <dt>cuts / noCuts <dd> whether any edges have an assignment of "C" (cut/slit representing multiple "B" edges)
      * </dl>
      * <p>
      * Custom attributes should have a colon in them; see Custom Properties below.

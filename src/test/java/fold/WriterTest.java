@@ -28,7 +28,7 @@ public class WriterTest extends BaseFoldTest {
 
         String contents = Files.readString(exportFile.toPath());
 
-        JSONAssert.assertEquals("{\"file_spec\": 1.1}", contents, true);
+        JSONAssert.assertEquals("{\"file_spec\": 1.2}", contents, true);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class WriterTest extends BaseFoldTest {
 
         String contents = Files.readString(exportFile.toPath());
 
-        JSONAssert.assertEquals("{\"file_spec\": 1.1, \"file_author\": \"TestSuite\"}", contents, true);
+        JSONAssert.assertEquals("{\"file_spec\": 1.2, \"file_author\": \"TestSuite\"}", contents, true);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class WriterTest extends BaseFoldTest {
 
         String contents = Files.readString(exportFile.toPath());
 
-        JSONAssert.assertEquals("{\"fold:test\": \"testvalue\", \"file_spec\": 1.1}", contents, true);
+        JSONAssert.assertEquals("{\"fold:test\": \"testvalue\", \"file_spec\": 1.2}", contents, true);
     }
 
     @Test

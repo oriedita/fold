@@ -42,11 +42,11 @@ class FoldFrameValueWriter implements ValueWriter {
             g.writeStringField("frame_title", value.getTitle());
         if (value.getDescription() != null)
             g.writeStringField("frame_description", value.getDescription());
-        if (value.getClasses().size() > 0) {
+        if (!value.getClasses().isEmpty()) {
             g.writeFieldName("frame_classes");
             context.writeValue(value.getClasses());
         }
-        if (value.getAttributes().size() > 0) {
+        if (!value.getAttributes().isEmpty()) {
             g.writeFieldName("frame_attributes");
             context.writeValue(value.getAttributes());
         }
@@ -59,6 +59,7 @@ class FoldFrameValueWriter implements ValueWriter {
         List<List<Double>> vertices_coords = new ArrayList<>();
         List<List<Integer>> vertices_vertices = new ArrayList<>();
         List<List<Integer>> vertices_faces = new ArrayList<>();
+        List<List<Integer>> vertices_edges = new ArrayList<>();
 
         for (Vertex vertex : value.getVertices()) {
             if (vertex.getX() != null && vertex.getY() != null) {
@@ -71,25 +72,35 @@ class FoldFrameValueWriter implements ValueWriter {
                 }
                 vertices_coords.add(coords);
             }
-            if (vertex.getFaces().size() > 0) {
+
+            if (!vertex.getFaces().isEmpty()) {
                 vertices_faces.add(vertex.getFaces().stream().map(f -> value.getFaces().indexOf(f)).collect(Collectors.toList()));
             }
-            if (vertex.getVertices().size() > 0) {
+
+            if (!vertex.getVertices().isEmpty()) {
                 vertices_vertices.add(vertex.getVertices().stream().map(v -> value.getVertices().indexOf(v)).collect(Collectors.toList()));
+            }
+
+            if (!vertex.getEdges().isEmpty()) {
+                vertices_edges.add(vertex.getEdges().stream().map(v -> value.getEdges().indexOf(v)).collect(Collectors.toList()));
             }
         }
 
-        if (vertices_coords.size() > 0) {
+        if (!vertices_coords.isEmpty()) {
             g.writeFieldName("vertices_coords");
             context.writeValue(vertices_coords);
         }
-        if (vertices_vertices.size() > 0) {
+        if (!vertices_vertices.isEmpty()) {
             g.writeFieldName("vertices_vertices");
             context.writeValue(vertices_vertices);
         }
-        if (vertices_faces.size() > 0) {
+        if (!vertices_faces.isEmpty()) {
             g.writeFieldName("vertices_faces");
             context.writeValue(vertices_faces);
+        }
+        if (!vertices_edges.isEmpty()) {
+            g.writeFieldName("vertices_edges");
+            context.writeValue(vertices_edges);
         }
 
         // Edge information: edges_...
@@ -116,23 +127,23 @@ class FoldFrameValueWriter implements ValueWriter {
             }
         }
 
-        if (edges_vertices.size() > 0) {
+        if (!edges_vertices.isEmpty()) {
             g.writeFieldName("edges_vertices");
             context.writeValue(edges_vertices);
         }
-        if (edges_faces.size() > 0) {
+        if (!edges_faces.isEmpty()) {
             g.writeFieldName("edges_faces");
             context.writeValue(edges_faces);
         }
-        if (edges_assignment.size() > 0) {
+        if (!edges_assignment.isEmpty()) {
             g.writeFieldName("edges_assignment");
             context.writeValue(edges_assignment);
         }
-        if (edges_foldAngle.size() > 0) {
+        if (!edges_foldAngle.isEmpty()) {
             g.writeFieldName("edges_foldAngle");
             context.writeValue(edges_foldAngle);
         }
-        if (edges_length.size() > 0) {
+        if (!edges_length.isEmpty()) {
             g.writeFieldName("edges_length");
             context.writeValue(edges_length);
         }
@@ -140,23 +151,31 @@ class FoldFrameValueWriter implements ValueWriter {
         // Face information: faces_...
         List<List<Integer>> faces_vertices = new ArrayList<>();
         List<List<Integer>> faces_edges = new ArrayList<>();
+        List<List<Integer>> faces_faces = new ArrayList<>();
 
         for (Face face : value.getFaces()) {
-            if (face.getEdges().size() > 0) {
+            if (!face.getEdges().isEmpty()) {
                 faces_edges.add(face.getEdges().stream().map(e -> value.getEdges().indexOf(e)).collect(Collectors.toList()));
             }
-            if (face.getVertices().size() > 0) {
+            if (!face.getVertices().isEmpty()) {
                 faces_vertices.add(face.getVertices().stream().map(v -> value.getVertices().indexOf(v)).collect(Collectors.toList()));
+            }
+            if (!face.getFaces().isEmpty()) {
+                faces_faces.add(face.getFaces().stream().map(v -> value.getFaces().indexOf(v)).collect(Collectors.toList()));
             }
         }
 
-        if (faces_vertices.size() > 0) {
+        if (!faces_vertices.isEmpty()) {
             g.writeFieldName("faces_vertices");
             context.writeValue(faces_vertices);
         }
-        if (faces_edges.size() > 0) {
+        if (!faces_edges.isEmpty()) {
             g.writeFieldName("faces_edges");
             context.writeValue(faces_edges);
+        }
+        if (!faces_faces.isEmpty()) {
+            g.writeFieldName("faces_faces");
+            context.writeValue(faces_faces);
         }
 
         // Layer information: faceOrders and edgeOrders
@@ -181,11 +200,11 @@ class FoldFrameValueWriter implements ValueWriter {
             edgeOrders.add(Arrays.asList(edge1Id, edge2Id, convertOrderBack(edgeOrder.getEdge1AboveEdge2())));
         }
 
-        if (edgeOrders.size() > 0) {
+        if (!edgeOrders.isEmpty()) {
             g.writeFieldName("edgeOrders");
             context.writeValue(edgeOrders);
         }
-        if (faceOrders.size() > 0) {
+        if (!faceOrders.isEmpty()) {
             g.writeFieldName("faceOrders");
             context.writeValue(faceOrders);
         }

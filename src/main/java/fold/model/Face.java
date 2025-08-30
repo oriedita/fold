@@ -11,6 +11,11 @@ public class Face {
     private List<Edge> edges = new ArrayList<>();
 
     /**
+     * @since 1.2
+     */
+    private List<Face> faces = new ArrayList<>();
+
+    /**
      * Get the list of vertices in this face.
      *
      * @return The vertices contained in this face.
@@ -44,5 +49,23 @@ public class Face {
      */
     public void setEdges(List<Edge> edges) {
         this.edges = edges;
+    }
+
+    /**
+     * Get the list of faces sharing edges with this face.
+     *
+     * @return The faces sharing edges with this face.
+     */
+    public List<Face> getFaces() {
+        return faces;
+    }
+
+    /**
+     * Set the list of faces sharing edges with this face.
+     *
+     * @param faces The faces sharing edges with this face.
+     */
+    public void setFaces(List<Face> faces) {
+        this.faces = faces;
     }
 }

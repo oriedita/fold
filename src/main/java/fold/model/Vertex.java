@@ -23,6 +23,11 @@ public class Vertex {
     private List<Face> faces = new ArrayList<>();
 
     /**
+     * @since 1.2
+     */
+    private List<Edge> edges = new ArrayList<>();
+
+    /**
      * Get the x coordinate of this vertex.
      *
      * @return The x coordinate of this vertex.
@@ -114,17 +119,35 @@ public class Vertex {
         this.faces = faces;
     }
 
+    /**
+     * Get the edges this vertex is incident to.
+     *
+     * @return The edges this vertix is incident to.
+     */
+    public List<Edge> getEdges() {
+        return edges;
+    }
+
+    /**
+     * Set the edges this vertex is incident to.
+     *
+     * @param edges The edges this vertix is incident to.
+     */
+    public void setEdges(List<Edge> edges) {
+        this.edges = edges;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vertex vertex = (Vertex) o;
-        return Objects.equals(getX(), vertex.getX()) && Objects.equals(getY(), vertex.getY()) && Objects.equals(getZ(), vertex.getZ()) && Objects.equals(getVertices(), vertex.getVertices()) && Objects.equals(getFaces(), vertex.getFaces());
+        return Objects.equals(getX(), vertex.getX()) && Objects.equals(getY(), vertex.getY()) && Objects.equals(getZ(), vertex.getZ()) && Objects.equals(getVertices(), vertex.getVertices()) && Objects.equals(getFaces(), vertex.getFaces()) && Objects.equals(getEdges(), vertex.getEdges());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getX(), getY(), getZ(), getVertices(), getFaces());
+        return Objects.hash(getX(), getY(), getZ(), getVertices(), getFaces(), getEdges());
     }
 
     @Override
@@ -135,6 +158,7 @@ public class Vertex {
                 ", z=" + z +
                 ", vertices=" + vertices +
                 ", faces=" + faces +
+                ", edges=" + edges +
                 '}';
     }
 }
