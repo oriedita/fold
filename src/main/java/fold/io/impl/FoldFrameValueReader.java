@@ -14,8 +14,11 @@ import java.util.Collections;
 import java.util.List;
 
 class FoldFrameValueReader extends ValueReader {
-    public FoldFrameValueReader() {
+    private final boolean strict;
+
+    public FoldFrameValueReader(boolean strict) {
         super(FoldFrame.class);
+        this.strict = strict;
     }
 
     private static <T> List<List<T>> readListListOf(Class<T> type, JSONReader reader, JsonParser p) throws IOException {
@@ -128,7 +131,7 @@ class FoldFrameValueReader extends ValueReader {
 
         String fieldName;
 
-        FoldFrameFactory foldFrameFactory = new FoldFrameFactory(frame);
+        FoldFrameFactory foldFrameFactory = new FoldFrameFactory(frame, strict);
 
         while ((fieldName = p.nextFieldName()) != null) {
             foldFrameFactory.readField(fieldName, reader, p);
@@ -141,6 +144,7 @@ class FoldFrameValueReader extends ValueReader {
 
     public static class FoldFrameFactory {
         private final FoldFrame instance;
+        private final boolean strict;
         List<List<Double>> vertices_coords = new ArrayList<>();
         List<List<Integer>> vertices_vertices = new ArrayList<>();
         List<List<Integer>> vertices_edges = new ArrayList<>();
@@ -159,8 +163,9 @@ class FoldFrameValueReader extends ValueReader {
         List<List<Integer>> edgeOrders = new ArrayList<>();
         List<List<Integer>> faceOrders = new ArrayList<>();
 
-        public FoldFrameFactory(FoldFrame instance) {
+        public FoldFrameFactory(FoldFrame instance, boolean strict) {
             this.instance = instance;
+            this.strict = strict;
         }
 
         public void readField(String fieldName, JSONReader reader, JsonParser p) throws IOException {
@@ -231,7 +236,9 @@ class FoldFrameValueReader extends ValueReader {
                     faceOrders = readListListOf(Integer.class, reader, p);
                     break;
                 default:
-                    throw new FoldFileFormatException("Field \"" + fieldName + "\" not valid");
+                    if (strict) {
+                        throw new FoldFileFormatException("Field \"" + fieldName + "\" not valid");
+                    }
             }
         }
 
