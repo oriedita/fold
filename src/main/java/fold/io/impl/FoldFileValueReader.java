@@ -11,10 +11,12 @@ import java.lang.reflect.InvocationTargetException;
 
 class FoldFileValueReader<T extends FoldFile> extends ValueReader {
     private final Class<T> type;
+    private final boolean strict;
 
-    public FoldFileValueReader(Class<T> type) {
+    public FoldFileValueReader(Class<T> type, boolean strict) {
         super(FoldFile.class);
         this.type = type;
+        this.strict = strict;
     }
 
     @Override
@@ -27,7 +29,7 @@ class FoldFileValueReader<T extends FoldFile> extends ValueReader {
             throw new RuntimeException(e);
         }
 
-        FoldFrameValueReader.FoldFrameFactory foldFrameFactory = new FoldFrameValueReader.FoldFrameFactory(instance.getRootFrame());
+        FoldFrameValueReader.FoldFrameFactory foldFrameFactory = new FoldFrameValueReader.FoldFrameFactory(instance.getRootFrame(), strict);
 
         String fieldName;
         while ((fieldName = p.nextFieldName()) != null) {

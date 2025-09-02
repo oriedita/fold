@@ -1,5 +1,6 @@
 package fold.io;
 
+import com.fasterxml.jackson.jr.ob.JSON;
 import fold.model.FoldFile;
 
 import java.io.IOException;
@@ -35,9 +36,13 @@ public class CustomFoldReader<T extends FoldFile> {
      */
     public T read() throws FoldFileFormatException {
         try {
-            return json.beanFrom(tClass, inputStream);
+            return getJson().beanFrom(tClass, inputStream);
         } catch (IOException e) {
             throw new FoldFileFormatException(e);
         }
+    }
+
+    protected JSON getJson() {
+        return json;
     }
 }
